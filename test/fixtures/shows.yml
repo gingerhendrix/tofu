@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+colbert:
+  id: 1
+  title: The Colbert Report
+  short_name: TheColbertReport
+brasseye:
+  id: 2
+  title: Brass Eye
+  short_name: BrassEye

@@ -1,0 +1,9 @@
+<h1>Update Show - <%=h @show.title %><h1>
+<ul>
+<% @sources.each_index do |i| %>
+<% source = @sources[i]
+   result = @results[i]
+%>
+<li><%=h source.id %> - <%=h source.type %> <%=h result %></li>
+<% end %>
+</ul>

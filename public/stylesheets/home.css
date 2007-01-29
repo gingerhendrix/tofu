@@ -1,0 +1,40 @@
+#searchForm{
+    margin-left: 60px;
+}
+
+#searchForm span.label{
+    margin-top: 4px;
+    margin-bottom: 4px;
+    font-size: 26px;
+    line-height: 32px;
+    width: 5em;
+}
+
+#searchForm input[type='text']{
+   font-size: 26px;
+   height: 36px;
+   margin-top: 2px;
+   margin-bottom: 2px;
+}
+
+#searchForm input[type='submit']{
+   font-size: 26px;
+   height: 38px;
+   width: 2em;
+   margin-top: 0px;
+   margin-bottom: 2px;
+   margin-left: 0.5em;
+   
+}
+
+#popular{
+   margin-left: 60px;
+   -moz-column-count: 3;
+   column-count: 3;
+}
+
+#introduction{
+    margin-left: 60px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,40 @@
+require 'net/http'
+require 'date'
+
+
+module ColbertFinder
+  public
+  def ColbertFinder.torrents
+    #uri = URI.parse("http://localhost/eclipse/scratch/mininova/colbertreport.htm");
+    uri = URI.parse("http://www.mininova.org/search/The+Colbert+Report/added");
+    response = Net::HTTP.get_response(uri);
+    body = response.body;
+    torrents = Array.new
+    body.scan(%r{<tr><td>(.*?)</td><td>.*?</td><td>.*?<a href="/tor/(.*?)">(.*?)</a></td>}m) do |added, url, title|
+      date_added = Date::parse(added, true)
+      sep = "(?:\.|\s|-)"
+      dateMatch = title.match(%r{\s+(\d{2})#{sep}(\d{2})#{sep}(\d{2})\s+})
+      if dateMatch 
+        year = dateMatch[3].to_i;
+        if year < 100 
+          if year < 69
+            year += 2000
+          else
+            year += 1900
+          end
+        end
+        episode_date = Date::new(year, dateMatch[1].to_i, dateMatch[2].to_i)
+        torrent = ColbertTorrent.new
+        torrent.date_added= added
+        torrent.episode=  episode_date
+        torrent.url= "http://www.mininova.org/get/#{url}"
+        torrent.title= title
+        torrents.push torrent
+      else #no dateMatch
+           #skip
+      end
+      end #scan
+      return torrents
+   end #def
+
+end #module

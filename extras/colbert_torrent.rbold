@@ -1,0 +1,24 @@
+
+class ColbertTorrent
+  attr_writer "date_added"
+  attr_reader "date_added"
+  
+  attr_writer "episode"
+  attr_reader "episode"
+  
+  attr_writer "url"
+  attr_reader "url"
+    
+  attr_writer "title"
+  attr_reader "title"
+
+  def to_hash
+    return {
+      'date_added'  => @date_added,
+      'episode_date'  => @episode,
+      'url'  => @url,
+      'title'  => @title
+    }
+  end
+
+end

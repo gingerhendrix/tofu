@@ -1,0 +1,12 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+tvrage_colbert:
+  id: 1
+  show_name: "The Colbert Report"
+  show_url: "http://www.tvrage.com/The_Colbert_Report"
+  show_id: 1
+tvrage_brasseye:
+  id: 2
+  show_name: "Brass Eye"
+  show_url: "http://www.tvrage.com/shows/id-556"
+  show_id: 2
+

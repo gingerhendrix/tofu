@@ -1,0 +1,37 @@
+#searchResults{
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+span.found{
+    font-size: 16px;
+}
+
+span.found span.showName{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+div.resultInfo{
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+div.resultInfo span.label{
+    width: 8em;
+}
+
+
+
+#searchResults input[type='submit']{
+    clear: both;
+    float: left;
+    margin-top: 20px;
+    font-size: 18px;
+    height: 32px;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    background-color: #b71000;
+    color: #270703;
+}

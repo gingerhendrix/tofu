@@ -1,0 +1,14 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+tvrage_colbert:
+  id: 1
+  type: TvrageSource
+  show_id: 1
+  update_interval: <%= 60.minutes %>
+  child_id: 1
+tvrage_brasseye:
+  id: 2
+  type: TvrageSource
+  show_id: 2
+  update_interval: <%= 60.minutes %>
+  child_id: 2
+  

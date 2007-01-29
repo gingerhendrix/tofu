@@ -1,0 +1,56 @@
+
+#showInfo{
+    margin-left: 60px;
+    
+}
+
+#showInfo dd dl{
+    height: 5em;    
+    margin-bottom: 40px;
+}
+
+#showInfo dt{
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: left;
+}
+
+#showInfo dd{
+    margin-left: 2em;
+}
+
+#showInfo dd dt{
+    font-size: 12px;
+    width: 15em;
+    float: left;
+    clear: left;
+}
+
+#showInfo dd dd{
+    float: left;
+}
+
+#showInfo dd dd.torrentStatistics{
+    clear: left;
+    float: left;
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+
+#showInfo dd dd thead tr td{
+    font-weight: bold;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 6em;
+    text-align: center;
+}
+
+#showInfo dd dd tr td{
+    text-align: center;
+}
+
+#showInfo dd dd tr td.title{
+   text-align: left;
+   font-weight: bold;
+}

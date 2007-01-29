@@ -1,0 +1,130 @@
+<h1><%=h @show.title %></h1>
+<h2>Show Info</h2>
+<div id="showInfo">
+    <dl >
+        <dt>Latest Episode</dt>
+        <dd><%= h @show_info[:latest_episode][:date].strftime('%d %b %y') %> - 
+            <%=h (@show_info[:latest_episode][:title] || "Unknown") %>
+        </dd>
+        <dt>Next Episode</dt>
+        <% if  @show_info[:next_episode].nil? %>
+            <dd>Unknown</dd>
+        <% else %>
+        <dd><%= h @show_info[:next_episode][:date].strftime('%d %b %y') %> - 
+            <%=h (@show_info[:next_episode][:title] || "Unknown") %></dd>
+        <% end %>
+        <dt>Premiere</dt>
+        <dd><%= h @show_info[:first_episode][:date].strftime('%d %b %y') %> - 
+            <%=h (@show_info[:first_episode][:title] || "Unknown") %></dd>
+        <dt id="databaseStatistics">
+            Database Statistics
+        </dt>
+        <dd>
+            <dl>
+                <dt>Number of Episodes</dt>
+                <dd><%= @database_statistics[:number_of_episodes] %></dd>
+                <dt>Number of Torrents</dt>
+                <dd>value</dd>
+                <dt>Torrent Statistics</dt>
+                <dd class="torrentStatistics">
+                    <table>
+                        <thead>
+                            <tr><td></td><td>Torrents per episode</td><td>Availability</td></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="title">all-time</td><td>value</td><td>value</td>
+                            </tr>
+                            <tr>
+                                <td class="title">recent</td><td><%= @database_statistics[:recent][:torrents_per_episode] %></td><td><%= (@database_statistics[:recent][:availability]*100) %>%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </dd>
+            </dl>
+        </dd>
+    </dl>
+    
+</div>
+
+<h2>Current Feed</h2>
+<div id="currentFeed" class="container">
+    <%= link_to(image_tag("rss-icon-small.jpg", :size => "30x30", :class=>"rssicon"), {:action => "rss"}, {:title=>"RSS Feed"}) %>
+    <ul>
+       <% if @feed.length > 0 %>
+       <% for item in @feed %>
+        <li><a href="<%=h item.url %>"><%=h item.title %></a></li>
+        <% end %>
+        <% else %>
+            <li>No items in feed</li>
+        <% end %>
+        
+    </ul>      
+  
+</div>
+
+
+<h2>Previous Episodes</h2>
+<div id="calendar">
+<%=  link_to("Following week", {:action => :show, :start_week => @start_week-1}, {:class =>"pagination"})%>
+
+<% calendar @weeks_paginator do |mUnit| %> 
+    <% if mUnit.items.length > 0 %>
+        <div class="week">
+            <h3></h3>
+            <% for day in mUnit.children.reverse! %>
+                <% if day.items.length > 0 %>
+                <% if day.items[0].torrents.length == 0 %>
+                    <div class="day found <%= day.beginning.strftime("%a") %>">
+                <% else %>
+                    <div class="day found <%= day.beginning.strftime("%a")%> torrentAvailable">
+                <% end %>
+                    <div class="date">    
+                        <span class="dayOfWeek"><%=day.beginning.strftime("%a")%></span>
+                        <span class="dayOfMonth"><%=day.beginning.strftime("%d")%></span>
+                        <span class="month"><%=day.beginning.strftime("%b")%></span>
+                        <span class="year"><%=day.beginning.strftime("%y")%></span>
+                    </div>
+                    <% for episode in day.items  %>
+                        <div class="episode items<%= day.items.length %>">
+                        <% if episode.tvdotcom_episode %>
+                             <span class="title">
+                                 <%=h episode.tvdotcom_episode.id %>. <%=h episode.tvdotcom_episode.title %>
+                             </span>
+                         <% else %>
+                             <span class="title unknown">
+                                 Unknown
+                             </span>
+                         <% end %>
+                         <% if episode.torrents.length > 0 %>
+                            <span class="torrent">
+                                Torrents: 
+                        	<% for torrent in episode.torrents %>
+                                    <a href="<%=h torrent.url%>" title="<%=h torrent.title%>"><%=h torrent.num+1%></a>
+                            <% end %>
+                            </span>
+                         <% else %>
+                             <span class="torrent notfound">
+                                 No torrents found                                 
+                             </span>
+                         <% end %>
+                       </div>
+                    <% end %>
+                </div>
+                <% else %>
+                <div class="day notfound <%= day.beginning.strftime("%a") %>">    
+                
+                </div>
+                <% end %>
+            <% end %>
+        </div>
+    <% else %>
+        <div class="week notfound">
+            <h3></h3>
+            <span class="notfound">No episodes found</span>
+        </div>
+    <% end %>
+<% end %>
+
+<%=  link_to("Previous week", {:action => :show, :start_week => @start_week+1},  {:class =>"pagination"})%>
+</div>
