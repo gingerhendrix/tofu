@@ -1,0 +1,24 @@
+
+    <div class="resultInfo">
+        <h3><%= tvrage_quickinfo['Show Name'] %></h3>
+        <div class="latestEpisode item">
+            <span class="label">
+            Latest Episode
+            </span>
+            <span class="value">
+                 <%= display_episode tvrage_quickinfo['Latest Episode'] %>
+             </span>
+        </div>
+        <div class="nextEpisode item">
+            <span class="label">
+            Next Episode
+            </span>
+            <span class="value">
+                <% if tvrage_quickinfo['Next Episode'].nil? %>
+                    No new shows scheduled
+                <% else %>
+                    <%= display_episode tvrage_quickinfo['Next Episode']%> 
+                <% end %>
+             </span>
+        </div>
+    </div>

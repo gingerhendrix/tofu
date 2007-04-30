@@ -11,4 +11,9 @@ tvrage_brasseye:
   show_id: 2
   update_interval: <%= 60.minutes %>
   child_id: 2
-  
+mininova_colbert:
+  id: 3
+  type: MininovaSource
+  show_id: 1
+  update_interval: <%= 60.minutes %>
+    

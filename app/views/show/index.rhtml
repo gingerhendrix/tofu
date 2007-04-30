@@ -1,19 +1,20 @@
 
 <div id="introduction">
 Tofu is an experimental tv-torrent aggregator.<br/>
-v0.2
+v0.4
 </div>
 <h1>Shows</h1>
     
 
 <!--[form:search]-->
-
+<!--
 <div id="searchForm">
 <%= start_form_tag :controller=> 'search', :action => 'search' %>
 <span class="label">Search</span><span class="value"><%= text_field 'search', 'search'  %></span>
   <%= submit_tag "Go" %>
 <%= end_form_tag %>
 </div>
+-->
 <h2>Popular</h2>
 <div id="popular">
 <ul>
@@ -21,4 +22,10 @@ v0.2
     <li class="show"><%= link_to(show.title, {:action=> "show", :name=>show.short_name})%></li>
 <% end %>
 </ul>
+
+</div>
+<div>
+    
+<%= link_to("New", {:action=> "new"})%>
+
 </div>

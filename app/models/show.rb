@@ -35,4 +35,27 @@ class Show < ActiveRecord::Base
                         :limit  =>  5,
                         :include => :episode
   end
+  
+  def frequency
+    episodes = self.episodes.find :all, :limit => 5, :order => "episode_date DESC", 
+                  :conditions => "episode_date < '#{Time.now.strftime('%Y:%m:%d %H:%M')}'"
+    n=0;
+    d1=nil;
+    sum =0;
+    episodes.each do |e|
+      d2 = d1
+      d1 = e.episode_date
+      if !d2.nil?
+        diff = d2 - d1
+        sum += diff
+        n+=1;
+     end
+    end
+    if n>0
+      frequency = sum/n
+     else
+      frequency = nil
+     end    
+    return frequency;              
+  end
 end

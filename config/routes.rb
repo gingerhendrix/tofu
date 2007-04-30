@@ -21,9 +21,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'show/', :controller => 'show', :action => 'index'
 
-  map.connect 'show/create', :controller => 'show', :action => 'create'
+  map.connect 'create', :controller => 'show', :action => 'create'
   
-  map.connect 'show/rss', :controller => 'show', :action => 'rss'
+  map.connect 'rss', :controller => 'show', :action => 'rss'
+  
+  map.connect 'new', :controller => 'show', :action => 'new'
+  
+  map.connect 'new2', :controller => 'show', :action => 'new2'
 
   map.connect 'show/:name/', :controller => 'show', :action => 'show'
   

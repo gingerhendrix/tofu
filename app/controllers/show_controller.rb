@@ -2,12 +2,25 @@
 class ShowController < ApplicationController
   model :show
   layout "application", :except => [:rss]
-  helper :calendar
+ # helper :calendar
 
   def index
     @shows = Show.find :all
   
   end
+  
+  def new
+  
+  end
+  
+  def new2
+    search = params[:search][:search]
+    @result = TvrageSource.find_show CGI::escape(search)
+      if !@result.nil?
+        session[:search_result] = @result 
+    end
+  end
+  
 
   def show
     @show = Show.find_by_short_name params[:name] #add includes
@@ -54,22 +67,36 @@ class ShowController < ApplicationController
     @database_statistics[:recent][:torrents_per_episode] = ((1.0*torrents)/recent_episodes.length);
     @database_statistics[:recent][:availability] = ((1.0*available)/recent_episodes.length);
     
+    @show_frequency = @show.frequency
+    
     @feed = @show.feed
-    if !params[:start_week].nil? 
-      @start_week = Integer(params[:start_week])
-    else
-      @start_week = Integer((Time.now - @latest_episode.episode_date)/1.weeks)
-    end
-    #@episodes = @show.episodes_by_week @start_week
-    @episodes = @show.episodes.find :all, :limit => 20, :order => "episode_date DESC"
-    @weeks_paginator = DatePagination::WeekPaginator.new @episodes, :episode_date 
+    
+    
+    
+#    if !params[:start_week].nil? 
+#      @start_week = Integer(params[:start_week])
+#    else
+#      @start_week = Integer((Time.now - @latest_episode.episode_date)/1.weeks)
+#    end
+    
+    @episode_pages = Paginator.new self, @show.episodes.count, 10, params[:page]
+    @episodes = @show.episodes.find :all, :order => 'episode_date DESC',
+                          :limit  =>  @episode_pages.items_per_page,
+                          :offset =>  @episode_pages.current.offset
+    
+    #@episode_pages, @episodes = paginate(@show.episodes, :order=>'episode_date DESC') 
+        
+    
+    #make more regular by using show_frequency to smartly add date based limits 
+    #@episodes = @show.episodes.find :all, :limit => 20, :order => "episode_date DESC"
+    #@weeks_paginator = DatePaginator.new @episodes, :episode_date
   end
 
-  def rss
-    @torrents = Show.find_by_short_name(params[:name]).feed
-    render :action => 'rss', :layout => false
- end
- 
+#  def rss
+#    @torrents = Show.find_by_short_name(params[:name]).feed
+#    render :action => 'rss', :layout => false
+# end
+# 
  def create
   if tvrage_show_info = session[:search_result]
     title = tvrage_show_info['Show Name']
@@ -81,17 +108,22 @@ class ShowController < ApplicationController
     
     tvrage_show.show = show
     
-    tvrage_source = TvrageSource.new :update_interval => 60.minutes 
+    tvrage_source = TvrageSource.new :update_interval => 1.days 
     tvrage_source.tvrage_show = tvrage_show
     tvrage_source.show = show
     
+    mininova_source = MininovaSource.new :update_interval => 12.hours
+    mininova_source.show = show
     
-    if show.valid? && tvrage_show.valid? && tvrage_source.valid?
+    
+    if show.valid? && tvrage_show.valid? && tvrage_source.valid? && mininova_source.valid?
       show.save
       tvrage_show.save
       tvrage_source.save
-    
-      tvrage_source.init!        
+      mininova_source.save
+      
+      tvrage_source.init
+      mininova_source.init
       # add sources 
       redirect_to :action => "show", :name => show.short_name
     else
@@ -102,5 +134,10 @@ class ShowController < ApplicationController
   end
   
  end
+ 
+# def sources
+#  @show = Show.find_by_short_name params[:name] #add includes
+#  @sources = @show.sources
+# end
  
 end

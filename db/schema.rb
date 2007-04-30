@@ -2,13 +2,18 @@
 # migrations feature of ActiveRecord to incrementally modify your database, and
 # then regenerate this schema definition.
 
-ActiveRecord::Schema.define(:version => 17) do
+ActiveRecord::Schema.define(:version => 21) do
 
   create_table "episodes", :force => true do |t|
     t.column "episode_date", :datetime, :null => false
     t.column "show_id", :integer
     t.column "season_number", :integer
     t.column "episode_number", :integer
+  end
+
+  create_table "feed_source_data", :force => true do |t|
+    t.column "feed_source_id", :integer
+    t.column "url", :string
   end
 
   create_table "shows", :force => true do |t|
@@ -26,24 +31,11 @@ ActiveRecord::Schema.define(:version => 17) do
   create_table "torrents", :force => true do |t|
     t.column "date_added", :datetime, :null => false
     t.column "title", :string, :default => "", :null => false
-    t.column "episode_date", :datetime, :null => false
     t.column "size", :integer, :limit => 9
     t.column "url", :string, :default => "", :null => false
     t.column "num", :integer, :limit => 6, :default => 0, :null => false
     t.column "episode_id", :integer
   end
-
-  create_table "tvdotcom_episodes", :force => true do |t|
-    t.column "number", :integer, :limit => 9, :default => 0, :null => false
-    t.column "title", :string, :default => "", :null => false
-    t.column "air_date", :datetime, :null => false
-    t.column "summary_href", :string, :default => "", :null => false
-    t.column "summary", :string, :limit => 1024
-    t.column "summary_html", :string, :limit => 1024
-    t.column "episode_id", :integer
-  end
-
-  add_index "tvdotcom_episodes", ["number", "air_date"], :name => "number", :unique => true
 
   create_table "tvrage_episodes", :force => true do |t|
     t.column "number", :integer
@@ -61,9 +53,6 @@ ActiveRecord::Schema.define(:version => 17) do
     t.column "show_name", :string
     t.column "show_url", :string
     t.column "show_id", :integer
-  end
-
-  create_table "tvrage_sources", :force => true do |t|
   end
 
   create_table "updates", :force => true do |t|

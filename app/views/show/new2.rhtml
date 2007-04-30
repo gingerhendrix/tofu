@@ -1,0 +1,15 @@
+
+<h1>Create</h1>
+
+<h2>1. Find show information</h2>
+<%= render(:partial => "tvrage_quickinfo", :object => @result) %>
+<br/>
+<br/>
+<%= start_form_tag :controller=> 'show', :action => 'create' %>
+  <%= submit_tag "Create" %>
+<%= end_form_tag %>
+<p>
+If this is not the correct show, try searching again with a MORE specific title.
+</p>
+<%= render(:partial => "new_tvrage_show") %>
+

@@ -33,7 +33,7 @@ class TvrageSource < Source
   
   
   #Initialise with remote data
-  def init!
+  def init
     update_episodes
   end
   
@@ -46,11 +46,14 @@ class TvrageSource < Source
     @info[:episodes].each do |ep|
       #TODO: maybe should only search by date if date-based show format
       #      or could use title as join key?
-      episode = Episode.find_or_create :show_id => self.show_id, :episode_date => ep[:date], :season_number => ep[:season_number], :episode_number => ep[:episode_number]
-      tvrage_episode = TvrageEpisode.new ep 
-      tvrage_episode.episode= episode
-      tvrage_episode.show = self.show
-      tvrage_episode.save!
+      if !ep[:date].nil?
+        episode = Episode.find_or_create :show_id => self.show_id, :episode_date => ep[:date], :season_number => ep[:season_number], :episode_number => ep[:episode_number]
+        
+        tvrage_episode = TvrageEpisode.new ep 
+        tvrage_episode.episode= episode
+        tvrage_episode.show = self.show
+        tvrage_episode.save
+      end
     end
     
   end

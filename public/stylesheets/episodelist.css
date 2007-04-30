@@ -1,0 +1,20 @@
+
+#episodes {
+  margin-left: 60px;
+}
+
+#episodes table tr{
+    height: 20px;
+}
+
+#episodes table td{
+    padding-left: 0.5em;
+    padding-right: 2em;  
+}
+
+#pagination_links{
+    float: right;
+    margin-bottom: 40px;
+    margin-right: 40px;
+}
+

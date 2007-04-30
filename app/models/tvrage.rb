@@ -1,4 +1,4 @@
-# A singleton for accessing services provided by 
+# A singleton for accessing services provided by  TvRage
 
 class Tvrage
   

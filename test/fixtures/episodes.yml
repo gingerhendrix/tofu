@@ -3,4 +3,7 @@ colbert_episode_one:
   id: 1
   episode_date: <%= DateTime.civil(2005,10,10, 0, 0, 0).to_s :db %>
   show_id: 1
-
+colbert_19_april_2007:
+  id: 2
+  episode_date: <%= DateTime.civil(2007,4,19, 0, 0, 0).to_s :db %>
+  show_id: 1
