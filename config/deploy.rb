@@ -5,13 +5,13 @@ set :site,         "1439" #Media-temple user-id thingy as in /home/1439/containe
 set :application,  "tofu"
 set :webpath,      "tofu.gandrew.com"
 set :domain,       "gandrew.com"
-set :user,         "serveradmin@gandrew.com"
+set :user,         "serveradmin%gandrew.com"
 set :password,     "enichem42"
 
-ssh_options[:username] = 'serveradmin@gandrew.com'
+ssh_options[:username] = 'serveradmin%gandrew.com'
 ssh_options[:password] = "enichem42"
 
-set :repository, "svn+ssh://#{user}@#{domain}/home/#{site}/users/.home/repos/#{application}/trunk"
+set :repository, "svn+ssh://#{user}@#{domain}/home/#{site}/users/.home/repos/#{application}/head"
 set :deploy_to,  "/home/#{site}/containers/rails/#{application}"
 
 set :checkout, "export"
