@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Hpricot::Elements</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Hpricot::Elements</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/hpricot/elements_rb.html">
+                lib/hpricot/elements.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Array
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Once you&#8216;ve matched a list of elements, you will often need to handle
+them as a group. Or you may want to perform the same action on each of
+them. <a href="Elements.html">Hpricot::Elements</a> is an extension of
+Ruby&#8216;s array class, with some methods added for altering elements
+contained in the array.
+</p>
+<p>
+If you need to create an element array from regular elements:
+</p>
+<pre>
+  Hpricot::Elements[ele1, ele2, ele3]
+</pre>
+<p>
+Assuming that ele1, ele2 and ele3 contain element objects (<a
+href="Elem.html">Hpricot::Elem</a>, <a href="Doc.html">Hpricot::Doc</a>,
+etc.)
+</p>
+<h2>Continuing Searches</h2>
+<p>
+Usually the <a href="Elements.html">Hpricot::Elements</a> you&#8216;re
+working on comes from a <a href="Elements.html#M000068">search</a>
+you&#8216;ve done. Well, you can continue searching the list by using the
+same <tt><a href="Elements.html#M000070">at</a></tt> and <tt><a
+href="Elements.html#M000068">search</a></tt> methods you can use on plain
+elements.
+</p>
+<pre>
+  elements = doc.search(&quot;/div/p&quot;)
+  elements = elements.search(&quot;/a[@href='http://hoodwink.d/']&quot;)
+  elements = elements.at(&quot;img&quot;)
+</pre>
+<h2>Altering <a href="Elements.html">Elements</a></h2>
+<p>
+When you&#8216;re altering elements in the list, your changes will be
+reflected in the document you started searching from.
+</p>
+<pre>
+  doc = Hpricot(&quot;That's my &lt;b&gt;spoon&lt;/b&gt;, Tyler.&quot;)
+  doc.at(&quot;b&quot;).swap(&quot;&lt;i&gt;fork&lt;/i&gt;&quot;)
+  doc.to_html
+    #=&gt; &quot;That's my &lt;i&gt;fork&lt;/i&gt;, Tyler.&quot;
+</pre>
+<h2>Getting More Detailed</h2>
+<p>
+If you can&#8216;t find a method here that does what you need, you may need
+to loop through the elements and find a method in <a
+href="Container/Trav.html">Hpricot::Container::Trav</a> which can do what
+you need.
+</p>
+<p>
+For example, you may want to <a href="Elements.html#M000068">search</a> for
+all the H3 header tags in a document and grab all the tags underneath the
+header, but <a href="Elements.html#M000092">not</a> inside the header. A
+good method for this is <tt>next_sibling</tt>:
+</p>
+<pre>
+  doc.search(&quot;h3&quot;).each do |h3|
+    while ele = h3.next_sibling
+      ary &lt;&lt; ele   # stuff away all the elements under the h3
+    end
+  end
+</pre>
+<p>
+Most of the useful element methods are in the mixins <a
+href="Traverse.html">Hpricot::Traverse</a> and <a
+href="Container/Trav.html">Hpricot::Container::Trav</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000071">%</a>&nbsp;&nbsp;
+      <a href="#M000069">/</a>&nbsp;&nbsp;
+      <a href="#M000087">after</a>&nbsp;&nbsp;
+      <a href="#M000084">append</a>&nbsp;&nbsp;
+      <a href="#M000070">at</a>&nbsp;&nbsp;
+      <a href="#M000086">before</a>&nbsp;&nbsp;
+      <a href="#M000083">empty</a>&nbsp;&nbsp;
+      <a href="#M000091">filter</a>&nbsp;&nbsp;
+      <a href="#M000090">filter</a>&nbsp;&nbsp;
+      <a href="#M000075">html</a>&nbsp;&nbsp;
+      <a href="#M000078">html=</a>&nbsp;&nbsp;
+      <a href="#M000076">innerHTML</a>&nbsp;&nbsp;
+      <a href="#M000079">innerHTML=</a>&nbsp;&nbsp;
+      <a href="#M000074">inner_html</a>&nbsp;&nbsp;
+      <a href="#M000077">inner_html=</a>&nbsp;&nbsp;
+      <a href="#M000080">inner_text</a>&nbsp;&nbsp;
+      <a href="#M000092">not</a>&nbsp;&nbsp;
+      <a href="#M000085">prepend</a>&nbsp;&nbsp;
+      <a href="#M000082">remove</a>&nbsp;&nbsp;
+      <a href="#M000068">search</a>&nbsp;&nbsp;
+      <a href="#M000089">set</a>&nbsp;&nbsp;
+      <a href="#M000081">text</a>&nbsp;&nbsp;
+      <a href="#M000072">to_html</a>&nbsp;&nbsp;
+      <a href="#M000073">to_s</a>&nbsp;&nbsp;
+      <a href="#M000088">wrap</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ATTR_RE</td>
+          <td>=</td>
+          <td class="context-item-value">%r!\[ *(?:(@)([\w\(\)-]+)|([\w\(\)-]+\(\))) *([~\!\|\*$\^=]*) *'?&quot;?([^'&quot;]*)'?&quot;? *\]!i</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">BRACK_RE</td>
+          <td>=</td>
+          <td class="context-item-value">%r!(\[) *([^\]]*) *\]!i</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">FUNC_RE</td>
+          <td>=</td>
+          <td class="context-item-value">%r!(:)?([a-zA-Z0-9\*_-]*)\( *[\&quot;']?([^ \)]*?)['\&quot;]? *\)!</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">CATCH_RE</td>
+          <td>=</td>
+          <td class="context-item-value">%r!([:\.#]*)([a-zA-Z0-9\*_-]+)!</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000090" class="method-detail">
+        <a name="M000090"></a>
+
+        <div class="method-heading">
+          <a href="#M000090" class="method-signature">
+          <span class="method-name">filter</span><span class="method-args">(nodes, expr, truth = true)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000090-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000090-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 201</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">filter</span>(<span class="ruby-identifier">nodes</span>, <span class="ruby-identifier">expr</span>, <span class="ruby-identifier">truth</span> = <span class="ruby-keyword kw">true</span>)
+        <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">expr</span>.<span class="ruby-identifier">empty?</span>
+            <span class="ruby-identifier">_</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">m</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">expr</span>.<span class="ruby-identifier">match</span>(<span class="ruby-node">/^(?:#{ATTR_RE}|#{BRACK_RE}|#{FUNC_RE}|#{CATCH_RE})/</span>)
+            <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">_</span>
+
+            <span class="ruby-identifier">expr</span> = <span class="ruby-identifier">$'</span>
+            <span class="ruby-identifier">m</span>.<span class="ruby-identifier">compact!</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'@'</span>
+                <span class="ruby-identifier">m</span>[<span class="ruby-value">0</span>] = <span class="ruby-node">&quot;@#{m.slice!(2,1)}&quot;</span>
+            <span class="ruby-keyword kw">end</span>
+
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'['</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^\d+$/</span>
+                <span class="ruby-identifier">m</span> = [<span class="ruby-value str">&quot;:&quot;</span>, <span class="ruby-value str">&quot;nth&quot;</span>, <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>]
+            <span class="ruby-keyword kw">end</span>
+
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;:&quot;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;not&quot;</span>
+                <span class="ruby-identifier">nodes</span>, = <span class="ruby-constant">Elements</span>.<span class="ruby-identifier">filter</span>(<span class="ruby-identifier">nodes</span>, <span class="ruby-identifier">m</span>[<span class="ruby-value">2</span>], <span class="ruby-keyword kw">false</span>)
+            <span class="ruby-keyword kw">else</span>
+                <span class="ruby-identifier">meth</span> = <span class="ruby-node">&quot;filter[#{m[0]}#{m[1]}]&quot;</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Traverse</span>.<span class="ruby-identifier">method_defined?</span> <span class="ruby-identifier">meth</span>
+                    <span class="ruby-identifier">args</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">2</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+                <span class="ruby-keyword kw">else</span>
+                    <span class="ruby-identifier">meth</span> = <span class="ruby-node">&quot;filter[#{m[0]}]&quot;</span>
+                    <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Traverse</span>.<span class="ruby-identifier">method_defined?</span> <span class="ruby-identifier">meth</span>
+                        <span class="ruby-identifier">args</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+                    <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span>
+                <span class="ruby-identifier">i</span> = <span class="ruby-value">-1</span>
+                <span class="ruby-identifier">nodes</span> = <span class="ruby-constant">Elements</span>[<span class="ruby-operator">*</span><span class="ruby-identifier">nodes</span>.<span class="ruby-identifier">find_all</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> 
+                                      <span class="ruby-identifier">i</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+                                      <span class="ruby-identifier">x</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">meth</span>, <span class="ruby-operator">*</span>([<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>] <span class="ruby-operator">+</span> [<span class="ruby-identifier">i</span>])) <span class="ruby-operator">?</span> <span class="ruby-identifier">truth</span> <span class="ruby-operator">:</span> <span class="ruby-operator">!</span><span class="ruby-identifier">truth</span>
+                                  <span class="ruby-keyword kw">end</span>]
+            <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        [<span class="ruby-identifier">nodes</span>, <span class="ruby-identifier">expr</span>]
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000071" class="method-detail">
+        <a name="M000071"></a>
+
+        <div class="method-heading">
+          <span class="method-name">%</span><span class="method-args">(expr, &amp;blk)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Elements.html#M000070">at</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000069" class="method-detail">
+        <a name="M000069"></a>
+
+        <div class="method-heading">
+          <span class="method-name">/</span><span class="method-args">(*expr,&amp;blk)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Elements.html#M000068">search</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000087" class="method-detail">
+        <a name="M000087"></a>
+
+        <div class="method-heading">
+          <a href="#M000087" class="method-signature">
+          <span class="method-name">after</span><span class="method-args">(str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Just <a href="Elements.html#M000087">after</a> each element in this list,
+add some HTML. Pass in an HTML <tt>str</tt>, which is turned into <a
+href="../Hpricot.html">Hpricot</a> elements.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000087-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000087-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 149</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">after</span>(<span class="ruby-identifier">str</span>)
+      <span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">insert_after</span> <span class="ruby-constant">Hpricot</span>.<span class="ruby-identifier">make</span>(<span class="ruby-identifier">str</span>), <span class="ruby-identifier">x</span> }
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000084" class="method-detail">
+        <a name="M000084"></a>
+
+        <div class="method-heading">
+          <a href="#M000084" class="method-signature">
+          <span class="method-name">append</span><span class="method-args">(str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add to the end of the contents inside each element in this list. Pass in an
+HTML <tt>str</tt>, which is turned into <a
+href="../Hpricot.html">Hpricot</a> elements.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000084-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000084-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 131</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">append</span>(<span class="ruby-identifier">str</span>)
+      <span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">inner_html</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">str</span> }
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000070" class="method-detail">
+        <a name="M000070"></a>
+
+        <div class="method-heading">
+          <a href="#M000070" class="method-signature">
+          <span class="method-name">at</span><span class="method-args">(expr, &amp;blk)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Searches this list for the first element (or child of these elements)
+matching the CSS or XPath expression <tt>expr</tt>. Root is assumed to be
+the element scanned.
+</p>
+<p>
+See Hpricot::Container::Trav.at for more.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000070-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000070-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 66</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">at</span>(<span class="ruby-identifier">expr</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
+      <span class="ruby-identifier">search</span>(<span class="ruby-identifier">expr</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>).<span class="ruby-identifier">first</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000086" class="method-detail">
+        <a name="M000086"></a>
+
+        <div class="method-heading">
+          <a href="#M000086" class="method-signature">
+          <span class="method-name">before</span><span class="method-args">(str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add some HTML just previous to each element in this list. Pass in an HTML
+<tt>str</tt>, which is turned into <a href="../Hpricot.html">Hpricot</a>
+elements.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000086-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000086-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 143</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">before</span>(<span class="ruby-identifier">str</span>)
+      <span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">insert_before</span> <span class="ruby-constant">Hpricot</span>.<span class="ruby-identifier">make</span>(<span class="ruby-identifier">str</span>), <span class="ruby-identifier">x</span> }
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000083" class="method-detail">
+        <a name="M000083"></a>
+
+        <div class="method-heading">
+          <a href="#M000083" class="method-signature">
+          <span class="method-name">empty</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Empty the elements in this list, by removing their insides.
+</p>
+<pre>
+  doc = Hpricot(&quot;&lt;p&gt; We have &lt;i&gt;so much&lt;/i&gt; to say.&lt;/p&gt;&quot;)
+  doc.search(&quot;i&quot;).empty
+  doc.to_html
+    =&gt; &quot;&lt;p&gt; We have &lt;i&gt;&lt;/i&gt; to say.&lt;/p&gt;&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000083-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000083-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 125</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">empty</span>
+      <span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">inner_html</span> = <span class="ruby-keyword kw">nil</span> }
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000091" class="method-detail">
+        <a name="M000091"></a>
+
+        <div class="method-heading">
+          <a href="#M000091" class="method-signature">
+          <span class="method-name">filter</span><span class="method-args">(expr)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000091-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000091-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 238</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">filter</span>(<span class="ruby-identifier">expr</span>)
+        <span class="ruby-identifier">nodes</span>, = <span class="ruby-constant">Elements</span>.<span class="ruby-identifier">filter</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">expr</span>)
+        <span class="ruby-identifier">nodes</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000075" class="method-detail">
+        <a name="M000075"></a>
+
+        <div class="method-heading">
+          <span class="method-name">html</span><span class="method-args">(*string)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Elements.html#M000074">inner_html</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000078" class="method-detail">
+        <a name="M000078"></a>
+
+        <div class="method-heading">
+          <span class="method-name">html=</span><span class="method-args">(string)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Elements.html#M000074">inner_html</a>=
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000076" class="method-detail">
+        <a name="M000076"></a>
+
+        <div class="method-heading">
+          <span class="method-name">innerHTML</span><span class="method-args">(*string)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Elements.html#M000074">inner_html</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000079" class="method-detail">
+        <a name="M000079"></a>
+
+        <div class="method-heading">
+          <span class="method-name">innerHTML=</span><span class="method-args">(string)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Elements.html#M000074">inner_html</a>=
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000074" class="method-detail">
+        <a name="M000074"></a>
+
+        <div class="method-heading">
+          <a href="#M000074" class="method-signature">
+          <span class="method-name">inner_html</span><span class="method-args">(*string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns an HTML fragment built of the contents of each element in this
+list.
+</p>
+<p>
+If a HTML <tt>string</tt> is supplied, this method acts like <a
+href="Elements.html#M000077">inner_html=</a>.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000074-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000074-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 81</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inner_html</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">string</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">string</span>.<span class="ruby-identifier">empty?</span>
+        <span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">inner_html</span> }.<span class="ruby-identifier">join</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">x</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">inner_html</span> = <span class="ruby-identifier">string</span>.<span class="ruby-identifier">pop</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">x</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000077" class="method-detail">
+        <a name="M000077"></a>
+
+        <div class="method-heading">
+          <a href="#M000077" class="method-signature">
+          <span class="method-name">inner_html=</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Replaces the contents of each element in this list. Supply an HTML
+<tt>string</tt>, which is loaded into <a href="../Hpricot.html">Hpricot</a>
+objects and inserted into every element in this list.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000077-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000077-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 94</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inner_html=</span>(<span class="ruby-identifier">string</span>)
+      <span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">inner_html</span> = <span class="ruby-identifier">string</span> }
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000080" class="method-detail">
+        <a name="M000080"></a>
+
+        <div class="method-heading">
+          <a href="#M000080" class="method-signature">
+          <span class="method-name">inner_text</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns an string containing the <a href="Elements.html#M000081">text</a>
+contents of each element in this list. All HTML tags are removed.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000080-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000080-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 102</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inner_text</span>
+      <span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">inner_text</span> }.<span class="ruby-identifier">join</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000092" class="method-detail">
+        <a name="M000092"></a>
+
+        <div class="method-heading">
+          <a href="#M000092" class="method-signature">
+          <span class="method-name">not</span><span class="method-args">(expr)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000092-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000092-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 243</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">not</span>(<span class="ruby-identifier">expr</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">expr</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Traverse</span>
+            <span class="ruby-identifier">nodes</span> = <span class="ruby-keyword kw">self</span> <span class="ruby-operator">-</span> [<span class="ruby-identifier">expr</span>]
+        <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">nodes</span>, = <span class="ruby-constant">Elements</span>.<span class="ruby-identifier">filter</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">expr</span>, <span class="ruby-keyword kw">false</span>)
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">nodes</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000085" class="method-detail">
+        <a name="M000085"></a>
+
+        <div class="method-heading">
+          <a href="#M000085" class="method-signature">
+          <span class="method-name">prepend</span><span class="method-args">(str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add to the start of the contents inside each element in this list. Pass in
+an HTML <tt>str</tt>, which is turned into <a
+href="../Hpricot.html">Hpricot</a> elements.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000085-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000085-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 137</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepend</span>(<span class="ruby-identifier">str</span>)
+      <span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">inner_html</span> = <span class="ruby-identifier">str</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">inner_html</span> }
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000082" class="method-detail">
+        <a name="M000082"></a>
+
+        <div class="method-heading">
+          <a href="#M000082" class="method-signature">
+          <span class="method-name">remove</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Remove all elements in this list from the document which contains them.
+</p>
+<pre>
+  doc = Hpricot(&quot;&lt;html&gt;Remove this: &lt;b&gt;here&lt;/b&gt;&lt;/html&gt;&quot;)
+  doc.search(&quot;b&quot;).remove
+  doc.to_html
+    =&gt; &quot;&lt;html&gt;Remove this: &lt;/html&gt;&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000082-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000082-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 114</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">remove</span>
+      <span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">x</span>) }
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000068" class="method-detail">
+        <a name="M000068"></a>
+
+        <div class="method-heading">
+          <a href="#M000068" class="method-signature">
+          <span class="method-name">search</span><span class="method-args">(*expr,&amp;blk)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Searches this list for any elements (or children of these elements)
+matching the CSS or XPath expression <tt>expr</tt>. Root is assumed to be
+the element scanned.
+</p>
+<p>
+See Hpricot::Container::Trav.search for more.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000068-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000068-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 57</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">search</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">expr</span>,<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
+      <span class="ruby-constant">Elements</span>[<span class="ruby-operator">*</span><span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">search</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">expr</span>,<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>) }.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>]
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000089" class="method-detail">
+        <a name="M000089"></a>
+
+        <div class="method-heading">
+          <a href="#M000089" class="method-signature">
+          <span class="method-name">set</span><span class="method-args">(k, v = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets an attribute for all elements in this list. You may use a simple pair
+(<em>attribute name</em>, <em>attribute value</em>):
+</p>
+<pre>
+  doc.search('p').set(:class, 'outline')
+</pre>
+<p>
+Or, use a hash of pairs:
+</p>
+<pre>
+  doc.search('div#sidebar').set(:class =&gt; 'outline', :id =&gt; 'topbar')
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000089-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000089-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 183</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set</span>(<span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span> = <span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">k</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Hash</span>
+        <span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">k</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">set_attribute</span>(<span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>) }
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">node</span>.<span class="ruby-identifier">set_attribute</span>(<span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000081" class="method-detail">
+        <a name="M000081"></a>
+
+        <div class="method-heading">
+          <span class="method-name">text</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Elements.html#M000080">inner_text</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000072" class="method-detail">
+        <a name="M000072"></a>
+
+        <div class="method-heading">
+          <a href="#M000072" class="method-signature">
+          <span class="method-name">to_html</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Convert this group of elements into a complete HTML fragment, returned as a
+string.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000072-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000072-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 73</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html</span>
+      <span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">output</span>(<span class="ruby-value str">&quot;&quot;</span>) }.<span class="ruby-identifier">join</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000073" class="method-detail">
+        <a name="M000073"></a>
+
+        <div class="method-heading">
+          <span class="method-name">to_s</span><span class="method-args">()</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Elements.html#M000072">to_html</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000088" class="method-detail">
+        <a name="M000088"></a>
+
+        <div class="method-heading">
+          <a href="#M000088" class="method-signature">
+          <span class="method-name">wrap</span><span class="method-args">(str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Wraps each element in the list inside the element created by HTML
+<tt>str</tt>. If more than one element is found in the string, <a
+href="../Hpricot.html">Hpricot</a> locates the deepest spot inside the
+first element.
+</p>
+<pre>
+ doc.search(&quot;a[@href]&quot;).
+     wrap(%{&lt;div class=&quot;link&quot;&gt;&lt;div class=&quot;link_inner&quot;&gt;&lt;/div&gt;&lt;/div&gt;})
+</pre>
+<p>
+This code wraps every link on the page inside a +div.link+ and a
++div.link_inner+ nest.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000088-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000088-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/hpricot/elements.rb, line 161</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">wrap</span>(<span class="ruby-identifier">str</span>)
+      <span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">wrap</span> = <span class="ruby-constant">Hpricot</span>.<span class="ruby-identifier">make</span>(<span class="ruby-identifier">str</span>)
+        <span class="ruby-identifier">nest</span> = <span class="ruby-identifier">wrap</span>.<span class="ruby-identifier">detect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">w</span><span class="ruby-operator">|</span> <span class="ruby-identifier">w</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">:children</span> }
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">nest</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">Exception</span>, <span class="ruby-value str">&quot;No wrapping element found.&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">x</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">replace_child</span>(<span class="ruby-identifier">x</span>, <span class="ruby-identifier">wrap</span>)
+        <span class="ruby-identifier">nest</span> = <span class="ruby-identifier">nest</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">first</span> <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">nest</span>.<span class="ruby-identifier">empty?</span>
+        <span class="ruby-identifier">nest</span>.<span class="ruby-identifier">children</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">x</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

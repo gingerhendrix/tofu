@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: CHANGELOG</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>CHANGELOG</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>CHANGELOG
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Mon Jun 25 19:34:44 +0100 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>0.5</h1>
+<h3>31rd January, 2006</h3>
+<ul>
+<li>support for a[text()=&quot;Click Me!&quot;] and
+h3[text()*=&quot;space&quot;] and the like.
+
+</li>
+<li>Hpricot.buffer_size accessor for increasing <a
+href="../classes/Hpricot.html">Hpricot</a>&#8216;s buffer if you&#8216;re
+encountering huge ASP.NET viewstate attribs.
+
+</li>
+<li>some support for colons in tag names (not full namespace support yet.)
+
+</li>
+<li>Element.to_original_html will attempt to preserve the original HTML while
+merging your changes.
+
+</li>
+<li>Element.to_plain_text converts an element&#8216;s contents to a simple text
+format.
+
+</li>
+<li>Element.inner_text removes all tags and returns text nodes concatenated
+into a single string.
+
+</li>
+<li>no @raw_string variable kept for comments, text, and cdata &#8212; as
+it&#8216;s redundant.
+
+</li>
+<li>xpath-style indices (//p/a[1]) but keep in mind that they aren&#8216;t
+zero-based.
+
+</li>
+<li>node_position is the index among all sibling nodes, while position is the
+position among children of identical type.
+
+</li>
+<li>comment() and text() search criteria, like: //p/text(), which selects all
+text inside paragraph tags.
+
+</li>
+<li>every element has css_path and xpath methods which return respective
+absolute paths.
+
+</li>
+<li>more flexibility all around: in parsing attributes, tags, comments and
+cdata.
+
+</li>
+</ul>
+<h1>0.4</h1>
+<h3>11th August, 2006</h3>
+<ul>
+<li>The :fixup_tags option will try to sort out the hierarchy so elements end
+up with the right parents.
+
+</li>
+<li>Elements such as <b>script</b> and <b>style</b> (identified as having CDATA
+contents) receive a single text node as their children now. Previously, <a
+href="../classes/Hpricot.html">Hpricot</a> was parsing out tags found in
+scripts.
+
+</li>
+<li>Better scanning of partially quoted attributes (found by Brent Beardsly on
+<a href="http://uswebgen.com">uswebgen.com</a>/)
+
+</li>
+<li>Better scanning of unquoted attributes &#8212; thanks to Aaron Patterson
+for the test cases!
+
+</li>
+<li>Some tags were being output in the empty tag style, although browsers hated
+that. FIXED!
+
+</li>
+<li>Added Elements#at for finding single elements.
+
+</li>
+<li>Added Elem::Trav#[] and Elem::Trav#[]= for reading and writing attributes.
+
+</li>
+</ul>
+<h1>0.3</h1>
+<h3>7th July, 2006</h3>
+<ul>
+<li>Fixed negative string size error on empty tokens. (news.bbc.co.uk)
+
+</li>
+<li>Allow the parser to accept just text nodes. (such as: <tt><a
+href="../classes/Hpricot.html#M000002">Hpricot.parse</a>(&#8216;TEXT&#8217;)</tt>)
+
+</li>
+<li>from JQuery to <a
+href="../classes/Hpricot/Elements.html">Hpricot::Elements</a>: remove,
+empty, append, prepend, before, after, wrap, set, html(&#8230;), to_html,
+to_s.
+
+</li>
+<li>on containers: to_html, replace_child, insert_before, insert_after,
+innerHTML=.
+
+</li>
+<li><a href="../classes/Hpricot.html">Hpricot</a>(&#8230;) is an alias for
+parse.
+
+</li>
+<li>open up all properties to setters, let people do as they may.
+
+</li>
+<li>use to_html for the full html of a node or set of elements.
+
+</li>
+<li>doctypes were messed.
+
+</li>
+</ul>
+<h1>0.2</h1>
+<h3>4th July, 2006</h3>
+<ul>
+<li>Rewrote the HTree parser to be simpler, more adequate for the common man.
+Will add encoding back in later.
+
+</li>
+</ul>
+<h1>0.1</h1>
+<h3>3rd July, 2006</h3>
+<ul>
+<li>For whatever reason, wrote this HTML parser in C. I guess Ragel is
+addictive and I want to improve HTree.
+
+</li>
+</ul>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

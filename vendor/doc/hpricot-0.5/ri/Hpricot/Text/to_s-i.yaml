@@ -1,0 +1,21 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Hpricot::Text#to_s converts the text to a string.
+- !ruby/object:SM::Flow::LIST 
+  contents: 
+  - !ruby/struct:SM::Flow::LI 
+    label: "-"
+    body: character references are decoded as much as possible.
+  - !ruby/struct:SM::Flow::LI 
+    label: "-"
+    body: undecodable character reference are converted to `?' character.
+  type: :BULLET
+full_name: Hpricot::Text#to_s
+is_singleton: false
+name: to_s
+params: ()
+visibility: public

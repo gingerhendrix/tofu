@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Mon Jun 25 19:34:44 +0100 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1><a href="../classes/Hpricot.html">Hpricot</a>, Read Any HTML</h1>
+<p>
+<a href="../classes/Hpricot.html">Hpricot</a> is a fast, flexible HTML
+parser written in C. It&#8216;s designed to be very accommodating (like
+Tanaka Akira&#8216;s HTree) and to have a very helpful library (like some
+JavaScript libs &#8212; JQuery, Prototype &#8212; give you.) The XPath and
+CSS parser, in fact, is based on John Resig&#8216;s JQuery.
+</p>
+<p>
+Also, <a href="../classes/Hpricot.html">Hpricot</a> can be handy for
+reading broken XML files, since many of the same techniques can be used. If
+a quote is missing, <a href="../classes/Hpricot.html">Hpricot</a> tries to
+figure it out. If tags overlap, <a
+href="../classes/Hpricot.html">Hpricot</a> works on sorting them out. You
+know, that sort of thing.
+</p>
+<p>
+*Please read this entire document* before making assumptions about how this
+software works.
+</p>
+<h2>An Overview</h2>
+<p>
+Let&#8216;s clear up what <a href="../classes/Hpricot.html">Hpricot</a> is.
+</p>
+<p>
+# <a href="../classes/Hpricot.html">Hpricot</a> is *a standalone library*.
+It requires no other libraries. Just Ruby! # While priding itself on speed,
+<a href="../classes/Hpricot.html">Hpricot</a> *works hard to sort out bad
+HTML* and
+</p>
+<pre>
+  pays a small penalty in order to get that right.  So that's slightly more important
+  to me than speed.
+</pre>
+<p>
+# *If you can see it in Firefox, then <a
+href="../classes/Hpricot.html">Hpricot</a> should parse it.* That&#8216;s
+</p>
+<pre>
+  how it should be!  Let me know the minute it's otherwise.
+</pre>
+<p>
+# Primarily, <a href="../classes/Hpricot.html">Hpricot</a> is used for
+reading HTML and tries to sort out troubled
+</p>
+<pre>
+  HTML by having some idea of what good HTML is.  Some people still like to use
+  Hpricot for XML reading, but *remember to use the Hpricot::XML() method* for that!
+</pre>
+<h2>The <a href="../classes/Hpricot.html">Hpricot</a> Kingdom</h2>
+<p>
+First, here are all the links you need to know:
+</p>
+<ul>
+<li><a
+href="http://code.whytheluckystiff.net/hpricot">code.whytheluckystiff.net/hpricot</a>
+is the <a href="../classes/Hpricot.html">Hpricot</a> wiki and bug tracker.
+Go there for news and recipes and patches. It&#8216;s the center of
+activity.
+
+</li>
+<li><a
+href="http://code.whytheluckystiff.net/svn/hpricot/trunk">code.whytheluckystiff.net/svn/hpricot/trunk</a>
+is the main Subversion repository for <a
+href="../classes/Hpricot.html">Hpricot</a>. You can get the latest code
+there.
+
+</li>
+<li><a
+href="http://code.whytheluckystiff.net/doc/hpricot">code.whytheluckystiff.net/doc/hpricot</a>
+is the home for the latest copy of this reference.
+
+</li>
+<li>See COPYING for the terms of this software. (Spoiler: it&#8216;s absolutely
+free.)
+
+</li>
+</ul>
+<p>
+If you have any trouble, don&#8216;t hesitate to contact the author. As
+always, I&#8216;m not going to say &quot;Use at your own risk&quot; because
+I don&#8216;t want this library to be risky. If you trip on something,
+I&#8216;ll share the liability by repairing things as quickly as I can.
+Your responsibility is to report the inadequacies.
+</p>
+<h2>Installing <a href="../classes/Hpricot.html">Hpricot</a></h2>
+<p>
+You may get the latest stable version from Rubyforge. Win32 binaries and
+source gems are available.
+</p>
+<pre>
+  $ gem install hpricot
+</pre>
+<p>
+As <a href="../classes/Hpricot.html">Hpricot</a> is still under active
+development, you can also try the most recent candidate build here:
+</p>
+<pre>
+  $ gem install hpricot --source http://code.whytheluckystiff.net
+</pre>
+<p>
+The development gem is usually in pretty good shape actually. You can also
+get the bleeding edge code or plain Ruby tarballs on the wiki.
+</p>
+<h2>An <a href="../classes/Hpricot.html">Hpricot</a> Showcase</h2>
+<p>
+We&#8216;re going to run through a big pile of examples to get you
+jump-started. Many of these examples are also found at <a
+href="http://code.whytheluckystiff.net/hpricot/wiki/HpricotBasics">code.whytheluckystiff.net/hpricot/wiki/HpricotBasics</a>,
+in case you want to add some of your own.
+</p>
+<h3>Loading <a href="../classes/Hpricot.html">Hpricot</a> Itself</h3>
+<p>
+You have probably got the gem, right? To load <a
+href="../classes/Hpricot.html">Hpricot</a>:
+</p>
+<pre>
+ require 'rubygems'
+ require 'hpricot'
+</pre>
+<p>
+If you&#8216;ve installed the plain source distribution, go ahead and just:
+</p>
+<pre>
+ require 'hpricot'
+</pre>
+<h3>Load an HTML Page</h3>
+<p>
+The <tt><a href="../classes/Hpricot.html">Hpricot</a>()</tt> method takes a
+string or any IO object and loads the contents into a document object.
+</p>
+<pre>
+ doc = Hpricot(&quot;&lt;p&gt;A simple &lt;b&gt;test&lt;/b&gt; string.&lt;/p&gt;&quot;)
+</pre>
+<p>
+To load from a file, just get the stream open:
+</p>
+<pre>
+ doc = open(&quot;index.html&quot;) { |f| Hpricot(f) }
+</pre>
+<p>
+To load from a web URL, use <tt>open-uri</tt>, which comes with Ruby:
+</p>
+<pre>
+ require 'open-uri'
+ doc = open(&quot;http://qwantz.com/&quot;) { |f| Hpricot(f) }
+</pre>
+<p>
+<a href="../classes/Hpricot.html">Hpricot</a> uses an internal buffer to
+parse the file, so the IO will stream properly and large documents
+won&#8216;t be loaded into memory all at once. However, the parsed document
+object will be present in memory, in its entirety.
+</p>
+<h3>Search for Elements</h3>
+<p>
+Use <tt>Doc.search</tt>:
+</p>
+<pre>
+ doc.search(&quot;//p[@class='posted']&quot;)
+ #=&gt; #&lt;Hpricot:Elements[{p ...}, {p ...}]&gt;
+</pre>
+<p>
+<tt>Doc.search</tt> can take an XPath or CSS expression. In the above
+example, all paragraph <tt>&lt;p&gt;</tt> elements are grabbed which have a
+<tt>class</tt> attribute of <tt>&quot;posted&quot;</tt>.
+</p>
+<p>
+A shortcut is to use the divisor:
+</p>
+<pre>
+ (doc/&quot;p.posted&quot;)
+ #=&gt; #&lt;Hpricot:Elements[{p ...}, {p ...}]&gt;
+</pre>
+<h3>Finding Just One Element</h3>
+<p>
+If you&#8216;re looking for a single element, the <tt>at</tt> method will
+return the first element matched by the expression. In this case,
+you&#8216;ll get back the element itself rather than the <tt><a
+href="../classes/Hpricot/Elements.html">Hpricot::Elements</a></tt> array.
+</p>
+<pre>
+ doc.at(&quot;body&quot;)['onload']
+</pre>
+<p>
+The above code will find the body tag and give you back the <tt>onload</tt>
+attribute. This is the most common reason to use the element directly: when
+reading and writing HTML attributes.
+</p>
+<h3>Fetching the Contents of an Element</h3>
+<p>
+Just as with browser scripting, the <tt>inner_html</tt> property can be
+used to get the inner contents of an element.
+</p>
+<pre>
+ (doc/&quot;#elementID&quot;).inner_html
+ #=&gt; &quot;..&lt;b&gt;contents&lt;/b&gt;..&quot;
+</pre>
+<p>
+If your expression matches more than one element, you&#8216;ll get back the
+contents of &#8217;&#8217;all the matched elements&#8217;&#8217;. So you
+may want to use <tt>first</tt> to be sure you get back only one.
+</p>
+<pre>
+ (doc/&quot;#elementID&quot;).first.inner_html
+ #=&gt; &quot;..&lt;b&gt;contents&lt;/b&gt;..&quot;
+</pre>
+<h3>Fetching the HTML for an Element</h3>
+<p>
+If you want the HTML for the whole element (not just the contents), use
+<tt>to_html</tt>:
+</p>
+<pre>
+ (doc/&quot;#elementID&quot;).to_html
+ #=&gt; &quot;&lt;div id='elementID'&gt;...&lt;/div&gt;&quot;
+</pre>
+<h3>Looping</h3>
+<p>
+All searches return a set of <tt><a
+href="../classes/Hpricot/Elements.html">Hpricot::Elements</a></tt>. Go
+ahead and loop through them like you would an array.
+</p>
+<pre>
+ (doc/&quot;p/a/img&quot;).each do |img|
+   puts img.attributes['class']
+ end
+</pre>
+<h3>Continuing Searches</h3>
+<p>
+Searches can be continued from a collection of elements, in order to search
+deeper.
+</p>
+<pre>
+ # find all paragraphs.
+ elements = doc.search(&quot;/html/body//p&quot;)
+ # continue the search by finding any images within those paragraphs.
+ (elements/&quot;img&quot;)
+ #=&gt; #&lt;Hpricot::Elements[{img ...}, {img ...}]&gt;
+</pre>
+<p>
+Searches can also be continued by searching within container elements.
+</p>
+<pre>
+ # find all images within paragraphs.
+ doc.search(&quot;/html/body//p&quot;).each do |para|
+   puts &quot;== Found a paragraph ==&quot;
+   pp para
+
+   imgs = para.search(&quot;img&quot;)
+   if imgs.any?
+     puts &quot;== Found #{imgs.length} images inside ==&quot;
+   end
+ end
+</pre>
+<p>
+Of course, the most succinct ways to do the above are using CSS or XPath.
+</p>
+<pre>
+ # the xpath version
+ (doc/&quot;/html/body//p//img&quot;)
+ # the css version
+ (doc/&quot;html &gt; body &gt; p img&quot;)
+ # ..or symbols work, too!
+ (doc/:html/:body/:p/:img)
+</pre>
+<h3>Looping Edits</h3>
+<p>
+You may certainly edit objects from within your search loops. Then, when
+you spit out the HTML, the altered elements will show.
+</p>
+<pre>
+ (doc/&quot;span.entryPermalink&quot;).each do |span|
+   span.attributes['class'] = 'newLinks'
+ end
+ puts doc
+</pre>
+<p>
+This changes all <tt>span.entryPermalink</tt> elements to
+<tt>span.newLinks</tt>. Keep in mind that there are often more convenient
+ways of doing this. Such as the <tt>set</tt> method:
+</p>
+<pre>
+ (doc/&quot;span.entryPermalink&quot;).set(:class =&gt; 'newLinks')
+</pre>
+<h3>Figuring Out Paths</h3>
+<p>
+Every element can tell you its unique path (either XPath or CSS) to get to
+the element from the root tag.
+</p>
+<p>
+The <tt>css_path</tt> method:
+</p>
+<pre>
+ doc.at(&quot;div &gt; div:nth(1)&quot;).css_path
+   #=&gt; &quot;div &gt; div:nth(1)&quot;
+ doc.at(&quot;#header&quot;).css_path
+   #=&gt; &quot;#header&quot;
+</pre>
+<p>
+Or, the <tt>xpath</tt> method:
+</p>
+<pre>
+ doc.at(&quot;div &gt; div:nth(1)&quot;).xpath
+   #=&gt; &quot;/div/div:eq(1)&quot;
+ doc.at(&quot;#header&quot;).xpath
+   #=&gt; &quot;//div[@id='header']&quot;
+</pre>
+<h2><a href="../classes/Hpricot.html">Hpricot</a> Fixups</h2>
+<p>
+When loading HTML documents, you have a few settings that can make <a
+href="../classes/Hpricot.html">Hpricot</a> more or less intense about how
+it gets involved.
+</p>
+<h2>:fixup_tags</h2>
+<p>
+Really, there are so many ways to clean up HTML and your intentions may be
+to keep the HTML as-is. So <a
+href="../classes/Hpricot.html">Hpricot</a>&#8216;s default behavior is to
+keep things flexible. Making sure to open and close all the tags, but
+ignore any validation problems.
+</p>
+<p>
+As of <a href="../classes/Hpricot.html">Hpricot</a> 0.4, there&#8216;s a
+new <tt>:fixup_tags</tt> option which will attempt to shift the
+document&#8216;s tags to meet XHTML 1.0 Strict.
+</p>
+<pre>
+ doc = open(&quot;index.html&quot;) { |f| Hpricot f, :fixup_tags =&gt; true }
+</pre>
+<p>
+This doesn&#8216;t quite meet the XHTML 1.0 Strict standard, it just tries
+to follow the rules a bit better. Like: say <a
+href="../classes/Hpricot.html">Hpricot</a> finds a paragraph in a link,
+it&#8216;s going to move the paragraph below the link. Or up and out of
+other elements where paragraphs don&#8216;t belong.
+</p>
+<p>
+If an unknown element is found, it is ignored. Again, <tt>:fixup_tags</tt>.
+</p>
+<h2>:xhtml_strict</h2>
+<p>
+So, let&#8216;s go beyond just trying to fix the hierarchy. The
+<tt>:xhtml_strict</tt> option really tries to force the document to be an
+XHTML 1.0 Strict document. Even at the cost of removing elements that get
+in the way.
+</p>
+<pre>
+ doc = open(&quot;index.html&quot;) { |f| Hpricot f, :xhtml_strict =&gt; true }
+</pre>
+<p>
+What measures does <tt>:xhtml_strict</tt> take?
+</p>
+<pre>
+ 1. Shift elements into their proper containers just like &lt;tt&gt;:fixup_tags&lt;/tt&gt;.
+ 2. Remove unknown elements.
+ 3. Remove unknown attributes.
+ 4. Remove illegal content.
+ 5. Alter the doctype to XHTML 1.0 Strict.
+</pre>
+<h2><a href="../classes/Hpricot.html#M000003">Hpricot.XML</a>()</h2>
+<p>
+The last option is the <tt>:xml</tt> option, which makes some slight
+variations on the standard mode. The main difference is that :xml mode
+won&#8216;t try to output tags which are friendlier for browsers. For
+example, if an opening and closing <tt>br</tt> tag is found, XML mode
+won&#8216;t try to turn that into an empty element.
+</p>
+<p>
+The primary way to use <a
+href="../classes/Hpricot.html">Hpricot</a>&#8216;s XML mode is to call the
+<a href="../classes/Hpricot.html#M000003">Hpricot.XML</a> method:
+</p>
+<pre>
+ doc = open(&quot;http://redhanded.hobix.com/index.xml&quot;) do |f|
+   Hpricot.XML(f)
+ end
+</pre>
+<p>
+*Also, :fixup_tags is canceled out by the :xml option.* This is because
+:fixup_tags makes assumptions based how HTML is structured. Specifically,
+how tags are defined in the XHTML 1.0 DTD.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

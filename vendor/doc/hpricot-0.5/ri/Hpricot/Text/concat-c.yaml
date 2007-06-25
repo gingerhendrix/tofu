@@ -1,0 +1,26 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Hpricot::Text.concat returns a text which is concatenation of arguments.
+- !ruby/struct:SM::Flow::P 
+  body: An argument should be one of follows.
+- !ruby/object:SM::Flow::LIST 
+  contents: 
+  - !ruby/struct:SM::Flow::LI 
+    label: "-"
+    body: String
+  - !ruby/struct:SM::Flow::LI 
+    label: "-"
+    body: Hpricot::Text
+  - !ruby/struct:SM::Flow::LI 
+    label: "-"
+    body: Hpricot::Location which points Hpricot::Text
+  type: :BULLET
+full_name: Hpricot::Text::concat
+is_singleton: true
+name: concat
+params: (*args)
+visibility: public
