@@ -23,6 +23,12 @@ Rails::Initializer.run do |config|
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
+  
+  #Add unpacked gems in the vendor/gems directory to the load path
+  config.load_paths += Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir|
+    File.directory?(lib = "#{dir}/lib") ? lib : dir
+  end
+  
 
   # Use the database for sessions instead of the file system
   # (create the session table with 'rake db:sessions:create')

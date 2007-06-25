@@ -1,0 +1,12 @@
+ruby extconf.rb install -i . hpricot
+checking for main() in c.lib... no
+creating Makefile
+
+nmake
+	c:\ruby\bin\ruby -e "puts 'EXPORTS', 'Init_hpricot_scan'"  > hpricot_scan-i386-mswin32.def
+	cl -nologo -I. -I. -Ic:/ruby/lib/ruby/1.8/i386-mswin32 -I. -MD -Zi -O2b2xg- -G6  -c -Tchpricot_scan.c
+
+nmake install
+	cl -nologo -I. -I. -Ic:/ruby/lib/ruby/1.8/i386-mswin32 -I. -MD -Zi -O2b2xg- -G6  -c -Tchpricot_scan.c
+
+nmake clean
